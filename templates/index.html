@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Document</title>
+  <style>
+    #prettybox {
+      background-color: {{ color }};
+      border: 1px solid black;
+      width: 250px;
+      height: 250px;
+      text-align: center;
+      vertical-align: center;
+      padding: 100px 0px;
+      font-size: 32px;
+      margin: 20px auto;
+    }
+    .container {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Welcome to the Great Number Game!</h2>
+    <h4>I'm thinking of a number between 1 and 100</h4>
+    <h5>Take a guess!</h5>
+
+    <form action="/process" method="post">
+      {% if accuracy != '' %}
+        <p id="prettybox">{{ accuracy }}</p>
+      {% endif %}
+      {% if end_game == '' %}
+        <input type="text" name="guess" id="guess">
+        <button name="submitbtn" class="btn btn-primary" type="submit">Guess!</button>
+      {% endif %}
+      <p>{{end_game}}</p>
+    </form>
+
+    <form action="/leaderboard" method="post">
+      {% if end_game == 'Good Game!' %}
+      <div class="form-group">
+				<label for="name">Enter Your Name:</label>
+				<input type="text" class="form-control" id="name" name="name">
+			</div>
+      <button class="btn btn-info" type="submit">Add To Leaderboard</button>
+      {% endif %}
+    </form>
+
+    <form action="/destroysession" method="post">
+      <button class="btn btn-info" type="submit">Start Over</button>
+    </form>
+
+    <p>Number of guesses: {{ num_of_guesses }}</p>
+    {% if end_game == "Too many tries. You lose!" %}
+      <p>Num: {{ random_num }}</p>
+    {% endif %}
+
+  </div>
+  <script>
+
+  </script>
+</body>
+
+</html>
